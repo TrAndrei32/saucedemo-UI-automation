@@ -14,19 +14,15 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
-            - name: Setup Python
-              uses : actions/setup-python@v4
-              with:
-                python-version: "3.12"
-            
-            - name: Install dependencies
-              run: pip install -r requirements.txt
-
-            - name: Install Chromium
-              run: playwright install chromium
+            - name: Build Docker image
+              run: docker build -t saucedemo-tests .
 
             - name: Run tests
-              run: pytest -v --html=report.html --self-contained-html
+              run: |
+                docker run \
+                  -v ${{ github.workspace }}/reports:/app/reports \
+                  saucedemo-tests \
+                  pytest -v --html=reports/report.html --self-contained-html
 
             - name: Upload report
               uses: actions/upload-artifact@v4
