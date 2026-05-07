@@ -28,6 +28,8 @@ UI test automation project for SauceDemo using Playwright and pytest, with CI/CD
 │   └── test_inventory.py
 ├── conftest.py             # Pytest fixtures
 ├──.gitignore
+├──.dockerignore
+├──dockerfile
 └──requirements.txt
 ```
 
