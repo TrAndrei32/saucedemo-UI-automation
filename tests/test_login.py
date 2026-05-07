@@ -1,11 +1,10 @@
 from pages.login_page import LoginPage
+import os
 
 
 class TestLogin:
-    def test_valid_login(self, page):
-        login_page = LoginPage(page)
-        login_page.login("standard_user", "secret_sauce")
-        assert page.url.endswith("/inventory.html")
+    def test_valid_login(self, logged_in_page):
+        assert logged_in_page.url.endswith("/inventory.html")
 
     def test_invalid_login(self, page):
         login_page = LoginPage(page)

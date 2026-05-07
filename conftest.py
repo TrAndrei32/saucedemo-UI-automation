@@ -1,21 +1,26 @@
 import pytest
-from playwright.sync_api import sync_playwright
+from pages.login_page import LoginPage
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_URL = "https://www.saucedemo.com"
 
 
 @pytest.fixture(scope="session")
-def browser():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        yield browser
-        browser.close()
+def base_url():
+    return BASE_URL
+
+
+@pytest.fixture
+def page(page, base_url):
+    page.goto(base_url)
+    return page
 
 
 @pytest.fixture(scope="function")
-def page(browser):
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto(BASE_URL)
-    yield page
-    context.close()
+def logged_in_page(page):
+    login_page = LoginPage(page)
+    login_page.login(os.getenv("NAME"), os.getenv("PASSWORD"))
+    return page
