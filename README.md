@@ -19,9 +19,11 @@ UI test automation project for SauceDemo using Playwright and pytest, with CI/CD
 │   └── workflows/
 │       └──ci.yml
 ├── pages/                  # Page Object Model
+│   ├── checkout_page.py
 │   ├── login_page.py
 │   └── inventory_page.py
 ├── tests/                  # Test suite
+│   ├── test_checkout.py
 │   ├── test_login.py
 │   └── test_inventory.py
 ├── conftest.py             # Pytest fixtures
