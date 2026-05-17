@@ -19,18 +19,22 @@ UI test automation project for SauceDemo using Playwright and pytest, with CI/CD
 │   └── workflows/
 │       └──ci.yml
 ├── pages/                  # Page Object Model
+│   ├── base_page.py
+│   ├── cart_page.py
 │   ├── checkout_page.py
 │   ├── login_page.py
 │   └── inventory_page.py
 ├── tests/                  # Test suite
+│   ├── test_cart.py
 │   ├── test_checkout.py
 │   ├── test_login.py
 │   └── test_inventory.py
+├── .gitignore
+├── .dockerignore
 ├── conftest.py             # Pytest fixtures
-├──.gitignore
-├──.dockerignore
-├──dockerfile
-└──requirements.txt
+├── pytest.ini
+├── dockerfile
+└── requirements.txt
 ```
 
 ## Test Coverage
