@@ -1,8 +1,10 @@
 from pages.login_page import LoginPage
 import os
+import pytest
 
 
 class TestLogin:
+    @pytest.mark.smoke
     def test_valid_login(self, logged_in_page):
         assert logged_in_page.url.endswith("/inventory.html")
 

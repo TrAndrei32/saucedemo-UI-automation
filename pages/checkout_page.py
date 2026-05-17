@@ -1,6 +1,9 @@
-class CheckoutPage:
+from pages.base_page import BasePage
+
+
+class CheckoutPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.checkout_button = "[data-test='checkout']"
         self.firstname_input = "[data-test='firstName']"
         self.lastname_input = "[data-test='lastName']"
@@ -12,6 +15,7 @@ class CheckoutPage:
 
     def go_to_checkout(self):
         self.page.locator(self.checkout_button).click()
+        self.wait_for_url("checkout-step-one.html")
 
     def fill_checkout_info(self, firstname: str, lastname: str, postal: str):
         self.page.locator(self.firstname_input).fill(firstname)

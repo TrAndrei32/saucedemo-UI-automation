@@ -14,13 +14,13 @@ def base_url():
 
 
 @pytest.fixture
-def page(page, base_url):
+def navigated_page(page, base_url):
     page.goto(base_url)
     return page
 
 
 @pytest.fixture(scope="function")
-def logged_in_page(page):
-    login_page = LoginPage(page)
+def logged_in_page(navigated_page):
+    login_page = LoginPage(navigated_page)
     login_page.login(os.getenv("NAME"), os.getenv("PASSWORD"))
-    return page
+    return navigated_page

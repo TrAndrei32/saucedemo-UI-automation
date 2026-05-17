@@ -1,9 +1,11 @@
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 import os
+import pytest
 
 
 class TestInventory:
+    @pytest.mark.smoke
     def test_inventory_page_loaded(self, logged_in_page):
         inventory_page = InventoryPage(logged_in_page)
         assert inventory_page.is_inventory_page()
@@ -12,6 +14,7 @@ class TestInventory:
         inventory_page = InventoryPage(logged_in_page)
         assert inventory_page.get_products_counts() > 0
 
+    @pytest.mark.smoke
     def test_add_first_product_to_cart(self, logged_in_page):
         inventory_page = InventoryPage(logged_in_page)
         inventory_page.add_first_product_to_cart()

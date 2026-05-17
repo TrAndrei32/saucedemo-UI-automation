@@ -1,19 +1,27 @@
-class InventoryPage:
+from pages.base_page import BasePage
+
+
+class InventoryPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.product_list = ".inventory_list"
         self.product_items = ".inventory_item"
         self.cart_icon = ".shopping_cart_link"
         self.sort_dropdown = ".product_sort_container"
+        self.open_cart = ".shopping_cart_link"
 
     def get_products_counts(self):
         return self.page.locator(self.product_items).count()
 
     def is_inventory_page(self):
-        return self.page.url.endswith("inventory.html")
+        # return self.page.url.endswith("inventory.html")
+        return self.get_url().endswith("inventory.html")
 
     def add_first_product_to_cart(self):
         self.page.locator(".btn_inventory").first.click()
+
+    def navigate_to_cart(self):
+        self.page.locator(self.open_cart).click()
 
     def select_sort_option(self, option_value: str):
         """option_value: 'az', 'za', 'lohi',  'hilo'"""

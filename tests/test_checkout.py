@@ -1,9 +1,11 @@
 import os
 from pages.inventory_page import InventoryPage
 from pages.checkout_page import CheckoutPage
+import pytest
 
 
 class TestCheckout:
+    @pytest.mark.smoke
     def test_checkout_happy_path(self, logged_in_page):
         inventory = InventoryPage(logged_in_page)
         checkout = CheckoutPage(logged_in_page)
