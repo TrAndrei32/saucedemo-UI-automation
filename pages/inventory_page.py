@@ -20,6 +20,9 @@ class InventoryPage(BasePage):
     def add_first_product_to_cart(self):
         self.page.locator(".btn_inventory").first.click()
 
+    def add_product_by_index(self, index: int):
+        self.page.locator(".btn_inventory").nth(index).click()
+
     def navigate_to_cart(self):
         self.page.locator(self.open_cart).click()
 
