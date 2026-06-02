@@ -9,7 +9,6 @@ class TestCheckout:
     def test_checkout_happy_path(self, logged_in_page):
         inventory = InventoryPage(logged_in_page)
         checkout = CheckoutPage(logged_in_page)
-
         inventory.add_first_product_to_cart()
         logged_in_page.locator(".shopping_cart_link").click()
         checkout.go_to_checkout()
@@ -20,14 +19,14 @@ class TestCheckout:
         )
         checkout.continue_to_overview()
         checkout.finish_order()
-
         message = checkout.get_confirmation_message()
         assert message == "Thank you for your order!"
 
+
+class TestCheckoutInvalidData:
     def test_checkout_missing_firstname(self, logged_in_page):
         inventory = InventoryPage(logged_in_page)
         checkout = CheckoutPage(logged_in_page)
-
         inventory.add_first_product_to_cart()
         logged_in_page.locator(".shopping_cart_link").click()
         checkout.go_to_checkout()
@@ -36,6 +35,35 @@ class TestCheckout:
                                     os.getenv("POSTAL_CODE")
                                     )
         checkout.continue_to_overview()
-
         error = checkout.get_error_message()
         assert "First Name is required" in error
+
+    def test_checkout_empty_zipcode(self, logged_in_page):
+        inventory = InventoryPage(logged_in_page)
+        checkout = CheckoutPage(logged_in_page)
+        inventory.add_first_product_to_cart()
+        logged_in_page.locator(".shopping_cart_link").click()
+        checkout.go_to_checkout()
+        checkout.fill_checkout_info(
+            os.getenv("FIRST_NAME"),
+            os.getenv("LAST_NAME"),
+            ""
+        )
+        checkout.continue_to_overview()
+        error = checkout.get_error_message()
+        assert "Postal Code is required" in error
+
+    def test_checkout_empty_last_name(self, logged_in_page):
+        inventory = InventoryPage(logged_in_page)
+        checkout = CheckoutPage(logged_in_page)
+        inventory.add_first_product_to_cart()
+        logged_in_page.locator(".shopping_cart_link").click()
+        checkout.go_to_checkout()
+        checkout.fill_checkout_info(
+            os.getenv("FIRST_NAME"),
+            "",
+            os.getenv("POSTAL_CODE")
+        )
+        checkout.continue_to_overview()
+        error = checkout.get_error_message()
+        assert "Last Name is required" in error
